@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NewUser</title>
+</head>
+<body>
+
+<h3 style="text-align: center; color: blue">
+    Список пользователей</h3>
+<div>
+
+    <table border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#7fff00">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:utext=" ${user.getId()}"></td>
+            <td align="center" th:utext=" ${user.getName()} "></td>
+            <td align="center" th:utext=" ${user.getSurname()} "></td>
+            <td align="center" th:utext=" ${user.getAge()} "></td>
+
+        </tr>
+    </table>
+
+</div>
+
+<h3 style="text-align: center; color: blue">
+    Введите ID пользователя, которого хотите удалить</h3>
+<form style="text-align: center" method="GET" action="/users/user-deleted">
+    <label for="id">ID:</label>
+    <input type="number" name="id" id="id">
+    <br/>
+    <br/>
+    <input type="submit" value="Удалить пользователя">
+</form>
+
+</body>
+</html>
