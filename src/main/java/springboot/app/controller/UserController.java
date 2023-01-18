@@ -1,6 +1,5 @@
 package springboot.app.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,49 +33,25 @@ public class UserController {
     @GetMapping("/add")
     public String addUserPage(ModelMap model) {
         model.addAttribute("user", new User());
-        return "ask-user-to-add";
+        return "input-user";
     }
 
-    @PostMapping()
+    @PostMapping("/add-user")
     public String addUser(@ModelAttribute("user") User user) {
-        userService.addUser(user);
+        userService.saveUser(user);
         return "redirect:/users";
     }
 
-    @GetMapping("/delete")
-    public String deleteUserPage(ModelMap model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "ask-user-to-delete";
+    @GetMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") long id, ModelMap model) {
+        model.addAttribute("user", userService.getUser(id));
+        return "input-user";
     }
 
-    @GetMapping("/user-deleted")
-    public String deleteUser(@RequestParam("id") long id) {
-        if (userService.deleteUser(id)) {
-            return "redirect:/users";
-        } else {
-            return "redirect:/users/no_id";
-        }
-    }
-
-    @GetMapping("/no_id")
-    public String noUser() {
-        return "no_id";
-    }
-
-    @GetMapping("/update")
-    public String updateUserPage(ModelMap model) {
-        model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("user", new User());
-        return "ask-user-to-update";
-    }
-
-    @PostMapping("/user-updated")
-    public String updateUser(@ModelAttribute("user") User user) {
-        if (userService.updateUser(user)) {
-            return "redirect:/users";
-        } else {
-            return "redirect:/users/no_id";
-        }
+    @GetMapping("/delete/{id}")
+    public String deleteUserPage(@PathVariable("id") long id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
     }
 
 }

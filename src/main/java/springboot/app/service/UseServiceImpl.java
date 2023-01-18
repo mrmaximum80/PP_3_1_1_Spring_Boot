@@ -1,14 +1,13 @@
 package springboot.app.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import springboot.app.dao.UserDAO;
 import springboot.app.model.User;
 
 import java.util.List;
 
-@Component
+@Service
 public class UseServiceImpl implements UserService {
 
     private UserDAO userDAO;
@@ -31,17 +30,13 @@ public class UseServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
-        userDAO.addUser(user);
+    public void saveUser(User user) {
+        userDAO.saveUser(user);
     }
 
     @Override
-    public boolean deleteUser(long id) {
-        return userDAO.deleteUser(id);
+    public void deleteUser(long id) {
+        userDAO.deleteUser(id);
     }
 
-    @Override
-    public boolean updateUser(User user) {
-        return userDAO.updateUser(user);
-    }
 }
